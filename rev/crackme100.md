@@ -22,7 +22,7 @@
 5. **Analyze the code**
    - Observe a bunch of math stuff (aint reading all that).
    - Notice the `memcmp` function comparing the modified input against the initialized variable (from step 3).
-   - 
+     
    ![Schermafbeelding 2024-07-08 162527](https://github.com/HenriMertens/PICOGYM/assets/149707229/02147adf-eda5-4fb7-b7ca-05c2abed58a4)
 
    
@@ -33,3 +33,8 @@
 
 ### Solution
 - I solved this using angr (see python script)
+- Here you see the adresses we are trying to find/avoid.
+- The rest is explained in the python script
+   ![adresses](https://github.com/HenriMertens/PICOGYM/assets/149707229/ccc2f415-240e-4234-a2dd-ef126dd216b1)
+
+  
