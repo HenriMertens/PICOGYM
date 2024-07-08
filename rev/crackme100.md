@@ -37,6 +37,7 @@
    ![adresses](https://github.com/HenriMertens/PICOGYM/assets/149707229/ccc2f415-240e-4234-a2dd-ef126dd216b1)
 
 - The rest is explained in the python script
+   ![solvev](https://github.com/HenriMertens/PICOGYM/assets/149707229/ffca93e3-db21-4c1b-94cb-5fc219a6a766)
 
 
   
