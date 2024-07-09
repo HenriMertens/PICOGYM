@@ -20,7 +20,7 @@
 
 
 5. **Analyze remaining code**
-   - Observe a bunch of math stuff (aint reading all that).
+   - Observe a bunch of math stuff that modifies our input (aint reading all that).
    - Notice the `memcmp` function comparing the modified input against the initialized variable (from step 3).
      
    ![Schermafbeelding 2024-07-08 162527](https://github.com/HenriMertens/PICOGYM/assets/149707229/02147adf-eda5-4fb7-b7ca-05c2abed58a4)
