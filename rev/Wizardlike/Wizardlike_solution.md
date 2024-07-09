@@ -31,7 +31,8 @@
      ![levels](https://github.com/HenriMertens/PICOGYM/assets/149707229/177445e1-643c-49e3-94c1-e57005dbb2a0)
 
    - Find some more black magic math stuff (we can safely ignore, probably not important anyways)
-   - Further we find that `ivar5` is compared to "w", "a", "s", "d", "q", probably storing input.
+   - Further we find that `ivar5` is compared to "w", "a", "s", "d", "q", probably storing input (I changed these already to azerty lay out, since I use azerty keyboard).
+     
      ![ivar5](https://github.com/HenriMertens/PICOGYM/assets/149707229/2cbb53cd-45eb-4905-80d0-06eddf944fe2)
 
    - Follow the function after the input is compared. Maybe we can do something with how the players moves, to go through walls (I already renamed the function)
