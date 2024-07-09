@@ -56,6 +56,7 @@
 9. **Run the modified program:**
    - Execute the modified game and verify that you can move through walls.
    - Notice part of the flag on the other side.
+     
    ![end](https://github.com/HenriMertens/PICOGYM/assets/149707229/26d82530-bb6f-435d-a225-a7ddd5096215)
 
 10. **Find and construct the flag:**
