@@ -5,7 +5,7 @@
 ### 1) Run the file normally
 
 - Execute the file and observe its behavior.
-- Note that the input is not immediately stopped, and the output varies based on the input length.
+- Note that the input is not immediately stopped, and varies based on the input.
 
 ### 2) Open file in Ghidra and navigate to main
 
