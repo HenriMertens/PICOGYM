@@ -156,14 +156,36 @@ Soltution:
 
    ![init](https://github.com/HenriMertens/PICOGYM/assets/149707229/9223bc46-c4a0-4bd6-8385-76b0e2388fc7)
    
-4) Easy fix lol, just use an alrady initialised state
+4) Easy fix lol, just use an already initialised state
    - Open up gdb
    - Set breakpoint at main
    - Run programm
    - Hit breakpoint
    - Dump the "state" with "generate-core-file"
+  
+     ![gdb](https://github.com/HenriMertens/PICOGYM/assets/149707229/2d021459-a3c9-4e70-8054-cd5c507713d9)
+
    - use this file in angr script instead of "enter_password"
    - Get error
+     ![angrgdb](https://github.com/HenriMertens/PICOGYM/assets/149707229/85515fc3-eb83-4284-88d0-ec65a7a8d217)
+
    - Cry
+5) Give up on angr and just do it with gdb
+
+6) Set breakpoint at 0x80d4b28, at this adress we can see all the variables (our input (= param1), what we xor with (= local40) and what this xor must equal (=local20))
+   ![xor](https://github.com/HenriMertens/PICOGYM/assets/149707229/e15f9c15-3da9-4f82-b3be-ca7bd384bce1)
+
+   Note that in order to get here, param2 must equal 0x20 (=32). We can assume that this is the length of our input since param1 is our input itself.
+   
+7) From the assembly above and when examining the three variables in ghidra, we can see that:
+   1) Param1 (our_input) is stored in "[ECX + EAX*0x1]", which is just ECX
+   2) Local40 is stored in "[ESP + EAX*0x1 + 0x4]" which is just ESP + 0x4
+   3) Local 20 is stored in "[ESP + EAX*0x1 + 0x24]" which is just $ESP +0x24
+
+   We inspect these variables with following commands:
+   ![regs](https://github.com/HenriMertens/PICOGYM/assets/149707229/6a1e717c-e5a6-4234-bee1-51c15c7ed141)
+
+   Keep in mind that you will only hit the breakpoint when giving 32 characters as input!
+
 
        
