@@ -151,6 +151,19 @@ Soltution:
 
 ![veritesting](https://github.com/HenriMertens/PICOGYM/assets/149707229/ab3ae3da-7a45-49c8-b571-bfc8bd1f6800)
 
-2) Easy fix lol, just add "veritesting = True" -> angr still seems to get stuck on some init functions :(
+2) Easy fix lol, just add "veritesting = True" -> problem fixed but, angr still seems to get stuck on some init functions :(
+   I let angr run for around 15 mins but it couldnt get past this
+
+   ![init](https://github.com/HenriMertens/PICOGYM/assets/149707229/9223bc46-c4a0-4bd6-8385-76b0e2388fc7)
+   
+4) Easy fix lol, just use an alrady initialised state
+   - Open up gdb
+   - Set breakpoint at main
+   - Run programm
+   - Hit breakpoint
+   - Dump the "state" with "generate-core-file"
+   - use this file in angr script instead of "enter_password"
+   - Get error
+   - Cry
 
        
