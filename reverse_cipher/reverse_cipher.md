@@ -4,10 +4,10 @@
     ![error](https://github.com/HenriMertens/PICOGYM/assets/149707229/f3451c41-c07a-4dc8-9cbe-251fd9fabc97)
     
 
-   - txt file just contains an encrypted flag
+   - The txt file just contains an encrypted flag
      picoCTF{w1{1wq8/7376j.:}
      
-2) Open file ghidra
+2) Open the file ghidra
    - We can see what causes these weird errors, we dont have a flag.txt file.
 ```c
     void main(void)
@@ -58,7 +58,7 @@
 }
 ```
 - We can solve this error by just creating a flag.txt ourselves.
-- Its improtant to note that ```c sVar1 = fread(local_58,0x18,1,local_20 ``` read the contents of the flag.txt file and puts it in the local_58 variable. sVar1 is assigned a value absed on if the file was read succesfully.
+- Its improtant to note that ```c sVar1 = fread(local_58,0x18,1,local_20 ``` reads the contents of the flag.txt file and puts it in the local_58 variable. sVar1 is assigned a value based on if the file was read succesfully.
 - The errors also tell us some important information:
   The flag.txt was on the server and contained the actual flag, when the programm was run on the server it opened the flag.txt, encrypted it contents and put the encrypted flag in rev_this.
   Knowing this I changed some of the variable names to make it easier to understand:
@@ -117,4 +117,10 @@ void main(void)
     2) For bytes 8-23 (characters) an if block is used:
        - Since j is the index of the current character we are examining this just checks if the last bit is 1 or 0. This basically just checks if the number is even or odd, since odd characters will have 1 as the last bit and even will not.
        - If the index is even 0x5 is added to the character, this just mean ascii value +5
-       - If the index is odd, 2 is subtracted from the character, this just mean sascii +2
+       - If the index is odd, 2 is subtracted from the character, this just means ascii value +2
+       - A simple python script reversing these oprations will do.
+
+3) Running the python file gives us the solution, we just need format it correctly
+   
+   ![dec](https://github.com/HenriMertens/PICOGYM/assets/149707229/0cd4efb8-33f6-4fdb-a9e7-61e9e597a311)
+
