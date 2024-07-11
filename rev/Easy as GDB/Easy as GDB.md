@@ -4,7 +4,7 @@
   ![brutestart](https://github.com/HenriMertens/PICOGYM/assets/149707229/1d9948ed-d73e-4a9a-8b2d-f7d31305297a)
 
 2) Spin up ghidra and analyze the "main" function.
-   - Since there isnt a literal "main" function we can try find it using the "entry" function.
+   - Since there isn't a literal "main" function we can try find it using the "entry" function.
    
    ![entryfunc](https://github.com/HenriMertens/PICOGYM/assets/149707229/96b85e3f-09a4-4948-a527-d30760e87eac)
 
@@ -38,7 +38,7 @@
     ```c
     fgets(__s, 0x200, _stdin);
     ```
- - This line read up to 0x200 bytes and saved it in __s
+ - This line reads up to 0x200 bytes and saves it in __s
  - We know that our input (flag) will be a max of 0x200 (256) bytes (characters)
  - Further we see it prints either "correct" or "incorrect" based on the input.
    This feels like a prime example to use angr on
@@ -50,6 +50,6 @@
      
      ![stuck](https://github.com/HenriMertens/PICOGYM/assets/149707229/0230a418-d969-49e5-be8f-db8de1930245)
 
-     After a few minutes however the programm will provide the flag
+     After a few minutes however, the programm will provide the flag
      
       ![flagbrute](https://github.com/HenriMertens/PICOGYM/assets/149707229/922a960e-14aa-4d4a-b90a-69af752c2811)
