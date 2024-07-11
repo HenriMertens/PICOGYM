@@ -291,7 +291,9 @@ Is it as simple as decrypting the md5 hash from `3836313833366631336533643632376
 Looks like it is.
 
 10) Run the programm again and see whats next:
-    ![md5](https://github.com/HenriMertens/PICOGYM/assets/149707229/7bf06f40-3f85-4df9-b522-7c5f5b00d77e)
+    
+    ![flag](https://github.com/HenriMertens/PICOGYM/assets/149707229/dbd2ed68-ed90-44a0-a1eb-fde7f2269dfc)
+
 
    Finally solved!!
 
