@@ -1,10 +1,10 @@
 Solution:
 
-1) run file normally and seet it just asks for a password
+1) run file normally and see it just asks for a password
    
   ![start](https://github.com/HenriMertens/PICOGYM/assets/149707229/5112d921-f963-4627-a717-ab03270d49c9)
 
-2) Open file in ghidra
+2) Open the file in ghidra
    - Examine the main.main function:
      
  ```c
@@ -70,21 +70,32 @@ Solution:
   return;
 }
  ```
-  - The code doesnt look like its 100% C and its also very janky
+  - The code doesnt look like its 100% C and it also looks very janky
   - We can try to figure out how the file works now :
     
     1) It prints a line ("Enter password:")
-    2) It scans our input and presumably puts it in ppuvar4
-    3) A checkpassword function is called, we can assume that atleast one of the params will be our scanned input.
-    4) We get to an if-else-block, in the else block we see
+       ```c
+       fmt.Printf(&DAT_080fea50,0x10,0,0,0);
+       ```
+    3) It scans our input and presumably puts it in ppuvar4
+       ```c
+       fmt.Scanf(&DAT_080fd1b6,3,ppuVar4,1,1);
+       ```
+    5) A checkpassword function is called, we can assume that atleast one of the params will be our scanned input.
+       ```c
+       main.checkPassword(*in_stack_ffffffac,in_stack_ffffffac[1]);
+       ```
+    7) We get to an if-else-block, in the else block we see more print functions and scans but also:
        
        ```c
        iVar1 = runtime.deferproc(0,&PTR_main.get_flag_081046a0);
        ```
        We can assume that cvar3 will store the result of the checkpassword function and the else-block will be called if the passsword is correct.
-       The else block also scans some new input and calls the main.ambush function, this is a problem for later
+       
 
-    -Examine the checkpassword function:
+
+
+- Examine the checkpassword function:
  ```c
           
 void main.checkPassword(int param_1,uint param_2)
