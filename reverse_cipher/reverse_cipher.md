@@ -112,4 +112,9 @@ void main(void)
 }
   
 ```
-  
+  - Now we can clearly see how the algorithm works:
+    1) For bytes (characters) 0-7 it doesnt do anything, the contents of the actual flag are getting stored directly in the temp_storage.
+    2) For bytes 8-23 (characters) an if block is used:
+       - Since j is the index of the current character we are examining this just checks if the last bit is 1 or 0. This basically just checks if the number is even or odd, since odd characters will have 1 as the last bit and even will not.
+       - If the index is even 0x5 is added to the character, this just mean ascii value +5
+       - If the index is odd, 2 is subtracted from the character, this just mean sascii +2
