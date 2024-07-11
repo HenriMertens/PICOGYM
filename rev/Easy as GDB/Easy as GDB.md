@@ -1,5 +1,6 @@
 1) Run file normally
   - It asks us for a flag, when a wrong input is given the programm closes.
+    
   ![brutestart](https://github.com/HenriMertens/PICOGYM/assets/149707229/1d9948ed-d73e-4a9a-8b2d-f7d31305297a)
 
 2) Spin up ghidra and analyze the "main" function.
@@ -40,5 +41,15 @@
  - This line read up to 0x200 bytes and saved it in __s
  - We know that our input (flag) will be a max of 0x200 (256) bytes (characters)
  - Further we see it prints either "correct" or "incorrect" based on the input.
-   This feels like a prime example to use angr on 
-3)
+   This feels like a prime example to use angr on
+   
+3) Solution:
+   - I solved this challenge via angr again with the solve.py script.
+   - The code is explained in the script itself
+   - Runtime was around 5 mins and it is worth noting that when running the code it will look like its stuck around here:
+     
+     ![stuck](https://github.com/HenriMertens/PICOGYM/assets/149707229/0230a418-d969-49e5-be8f-db8de1930245)
+
+     After a few minutes however the programm will provide the flag
+     
+      ![flagbrute](https://github.com/HenriMertens/PICOGYM/assets/149707229/922a960e-14aa-4d4a-b90a-69af752c2811)
