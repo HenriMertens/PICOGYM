@@ -153,16 +153,17 @@ void main.checkPassword(int param_1,uint param_2)
   } while( true );
 }
  ```
--We see that some random values are initialised in local40.
-- Each byte (character) of Local40 is XORD with each byte of param2 (presumably our input) and compared against local20.
+- We see that some random values are initialised in local40.
+- Each byte (character) of param1 (presumably our input) is XORD with each byte of local40 (some kind of xor key) and compared against local20.
   
-Soltution:
--I first tried with angr, however I had some difficulties:
-1) When running basic angrscript with just sm.run() angr was making a ton of active states
+Solution:
+- I first tried with angr, however I had some difficulties:
+1) When running basic angr script with just sm.run() angr was making a ton of active states
 
 ![veritesting](https://github.com/HenriMertens/PICOGYM/assets/149707229/ab3ae3da-7a45-49c8-b571-bfc8bd1f6800)
 
 2) Easy fix lol, just add "veritesting = True" -> problem fixed but, angr still seems to get stuck on some init functions :(
+
    I let angr run for around 15 mins but it couldnt get past this
 
    ![init](https://github.com/HenriMertens/PICOGYM/assets/149707229/9223bc46-c4a0-4bd6-8385-76b0e2388fc7)
