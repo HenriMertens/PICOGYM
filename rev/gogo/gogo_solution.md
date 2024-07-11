@@ -1,6 +1,6 @@
 Solution:
 
-1) run file normally and see it just asks for a password
+1) Run file normally and see it just asks for a password
    
   ![start](https://github.com/HenriMertens/PICOGYM/assets/149707229/5112d921-f963-4627-a717-ab03270d49c9)
 
