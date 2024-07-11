@@ -202,7 +202,88 @@ Soltution:
     
     ![pass](https://github.com/HenriMertens/PICOGYM/assets/149707229/5c83cb3a-ce2b-45bb-b18a-8093e7161bfd)
 
-   The programm asks us for the unhashed key, remeber our input was xord with `3836313833366631336533643632376466613337356264623833383932313465`
+   The programm asks us for the unhashed key, remeber our input was xord with `3836313833366631336533643632376466613337356264623833383932313465`.
+   Perhaps this is just the key it is asking for?
+
+   Looking at ghidra we can see that after our input gets scanned the function main.ambush is called:
+ ```c
+   void main.ambush(undefined4 param_1,undefined4 param_2)
+
+{
+  char cVar1;
+  uint uVar2;
+  int *in_GS_OFFSET;
+  int local_88;
+  uint local_84;
+  uint local_80;
+  undefined local_70 [16];
+  undefined4 local_60;
+  undefined4 local_5c;
+  undefined4 local_58;
+  undefined4 local_54;
+  undefined4 local_50;
+  undefined4 local_4c;
+  undefined4 local_48;
+  undefined4 local_44;
+  undefined local_40 [32];
+  undefined local_20 [12];
+  undefined local_14 [16];
+  undefined4 uStack_4;
+  
+  while (local_14 <= *(undefined **)(*(int *)(*in_GS_OFFSET + -4) + 8)) {
+    uStack_4 = 0x80d4e4b;
+    runtime.morestack_noctxt();
+  }
+  runtime.stringtoslicebyte(local_40,param_1,param_2);
+  crypto/md5.Sum(local_88,local_84,local_80);
+  FUN_08091008();
+  FUN_08090b18();
+  local_60 = 0x38313638;
+  local_5c = 0x31663633;
+  local_58 = 0x64336533;
+  local_54 = 0x64373236;
+  local_50 = 0x37336166;
+  local_4c = 0x62646235;
+  local_48 = 0x39383338;
+  local_44 = 0x65343132;
+  uVar2 = 0;
+  while( true ) {
+    if (0xf < (int)uVar2) {
+      return;
+    }
+    encoding/hex.EncodeToString(local_70,0x10,0x10);
+    if (local_84 <= uVar2) break;
+    cVar1 = *(char *)(uVar2 + local_88);
+    local_88 = 0x20;
+    runtime.slicebytetostring(local_20,&local_60,0x20);
+    if (local_80 <= uVar2) break;
+    if (cVar1 != *(char *)(local_84 + uVar2)) {
+      os.Exit(0);
+    }
+    uVar2 = uVar2 + 1;
+  }
+  runtime.panicindex();
+  do {
+    invalidInstructionException();
+  } while( true );
+}
+```
+We notice:
+`
+  crypto/md5.Sum(local_88,local_84,local_80);
+`
+
+Is it as simple as decrypting the md5 hash from `3836313833366631336533643632376466613337356264623833383932313465`?
+![md5](https://github.com/HenriMertens/PICOGYM/assets/149707229/3945f2da-d259-4410-9ce9-1aa117ce458d)
+
+Looks like it is.
+
+10) Run the programm again and see whats next:
+    ![md5](https://github.com/HenriMertens/PICOGYM/assets/149707229/7bf06f40-3f85-4df9-b522-7c5f5b00d77e)
+
+   Finally solved!!
+
+
 
 
 
