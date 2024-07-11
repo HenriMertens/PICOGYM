@@ -187,5 +187,23 @@ Soltution:
 
    Keep in mind that you will only hit the breakpoint when giving 32 characters as input!
 
+8) Since our_input^local40 shoudl equal local20, we can deduce that local40^local20 sould equal our input!
+   We can use cyberchef to easiliy compute the XOR:
+   
+   ![noswap](https://github.com/HenriMertens/PICOGYM/assets/149707229/d2523baf-b132-4d0a-b44e-346e0c93e5f0)
+
+   hmmm, this almost looks correct. Lets tryswapping endianness:
+
+   ![swap](https://github.com/HenriMertens/PICOGYM/assets/149707229/8400ad2c-5f79-4b19-ad6f-ea3b77e5c3f2)
+
+   Nice! This looks like it will be the password.
+
+9) Run the programm again and see whats next:
+    
+    ![pass](https://github.com/HenriMertens/PICOGYM/assets/149707229/5c83cb3a-ce2b-45bb-b18a-8093e7161bfd)
+
+   The programm asks us for the unhashed key, remeber our input was xord with `3836313833366631336533643632376466613337356264623833383932313465`
+
+
 
        
