@@ -199,12 +199,12 @@ Solution:
 
    Keep in mind that you will only hit the breakpoint when giving 32 characters as input!
 
-8) Since our_input^local40 shoudl equal local20, we can deduce that local40^local20 sould equal our input!
-   We can use cyberchef to easiliy compute the XOR:
+8) Since our_input^local40 should equal local20, we can deduce that local40^local20 should equal our input !
+   We can use cyberchef to easily compute the XOR:
    
    ![noswap](https://github.com/HenriMertens/PICOGYM/assets/149707229/d2523baf-b132-4d0a-b44e-346e0c93e5f0)
 
-   hmmm, this almost looks correct. Lets tryswapping endianness:
+   hmmm, this almost looks correct. Lets try swapping endianness:
 
    ![swap](https://github.com/HenriMertens/PICOGYM/assets/149707229/8400ad2c-5f79-4b19-ad6f-ea3b77e5c3f2)
 
