@@ -50,6 +50,8 @@ void header(void)
   alarm(1);
   return;
 }
+As for as I understand `__sysv_signal(0xe,alarm_handler)` sets up a listener. It listens for 0xe (14), which corresponds to `SIGALRM`. If it receives a signal it calls `alarm_handler`, this function just prints "boom" and closes the programm.
+alarm(1) sends this `SIGALRM` after 1 second.
 
 ```
 - get_key gets a key (= encrypted flag):
