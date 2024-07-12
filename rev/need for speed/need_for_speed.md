@@ -1,5 +1,6 @@
 1) Run file normally
    - We explode -> not good
+     
      ![explode](https://github.com/user-attachments/assets/0006bcc8-d72b-4ed4-8a18-14560d39ac83)
      
 
@@ -51,7 +52,7 @@ void header(void)
   return;
 }
 ```
-As for as I understand `__sysv_signal(0xe,alarm_handler)` sets up a listener. It listens for 0xe (14), which corresponds to `SIGALRM`. If it receives a signal it calls `alarm_handler`, this function just prints "boom" and closes the programm.
+As far as I understand `__sysv_signal(0xe,alarm_handler)` sets up a listener. It listens for 0xe (14), which corresponds to `SIGALRM`. If it receives a signal it calls `alarm_handler`, this function just prints "boom" and closes the programm.
  `alarm(1)` sends this `SIGALRM` after 1 second.
 
 
@@ -79,9 +80,9 @@ void print_flag(void)
   puts(flag);
   return;
 }
-At the moment we also do not care how this is decrypted
 
  ```
+At the moment we also do not care how this is decrypted
 SOLUTION:
 - If we can avoid the timer we can just print teh flag withouth it vlosing the programm.
 - There are numerous ways to do this:
@@ -95,5 +96,12 @@ SOLUTION:
 
   2) Change set_timer to get_key (or something else) in ghidra
      
-  3) Set breakpoint just before set_timer is called in gdb and manually set $rip to the addres of get_flag
-  4) .....
+     ![get_key1](https://github.com/user-attachments/assets/b988b683-1af3-4120-89d2-7127298706ae)
+     ![get_key2](https://github.com/user-attachments/assets/25788acc-dbcd-42f8-831f-a1dfa90f1144)
+
+  4) Set breakpoint just before set_timer is called in gdb and manually set $rip to the addres of get_flag
+     ![gdb1](https://github.com/user-attachments/assets/88a5e50d-6da0-4f78-acdf-bf5132fba105)
+     ![gdb2](https://github.com/user-attachments/assets/1778d991-3bba-4e7b-ba6c-e5bf0412aaa5)
+     ![gdb3](https://github.com/user-attachments/assets/f3fa76bd-8ba4-4708-ba8f-cd5e03f655a4)
+
+  5) .....
