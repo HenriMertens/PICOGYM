@@ -50,10 +50,11 @@ void header(void)
   alarm(1);
   return;
 }
-As for as I understand `__sysv_signal(0xe,alarm_handler)` sets up a listener. It listens for 0xe (14), which corresponds to `SIGALRM`. If it receives a signal it calls `alarm_handler`, this function just prints "boom" and closes the programm.
-alarm(1) sends this `SIGALRM` after 1 second.
-
 ```
+As for as I understand `__sysv_signal(0xe,alarm_handler)` sets up a listener. It listens for 0xe (14), which corresponds to `SIGALRM`. If it receives a signal it calls `alarm_handler`, this function just prints "boom" and closes the programm.
+ `alarm(1)` sends this `SIGALRM` after 1 second.
+
+
 - get_key gets a key (= encrypted flag):
 ```c
 void get_key(void)
@@ -81,3 +82,18 @@ void print_flag(void)
 At the moment we also do not care how this is decrypted
 
  ```
+SOLUTION:
+- If we can avoid the timer we can just print teh flag withouth it vlosing the programm.
+- There are numerous ways to do this:
+  1) Change set_timer to NOP instructions in ghidra
+     
+   ![patch](https://github.com/user-attachments/assets/ebef33f2-29a6-4bf4-b7a5-a0527e6a11f0)
+
+   ![nop1](https://github.com/user-attachments/assets/423efe53-3c83-4c2f-9f10-4ef6dea60eb9)
+   ![nop2](https://github.com/user-attachments/assets/771c2b79-9a57-4256-992e-0e1d1ae1ca02)
+   ![nop3](https://github.com/user-attachments/assets/4985b1b9-0d7d-46b5-86c1-ccc834c15400)
+
+  2) Change set_timer to get_key (or something else) in ghidra
+     
+  3) Set breakpoint just before set_timer is called in gdb and manually set $rip to the addres of get_flag
+  4) .....
