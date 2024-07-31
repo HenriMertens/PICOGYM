@@ -25,7 +25,7 @@ SOLUTION:
 - See what first function does (`FUN_00105960`)
 - Lots of variables get declared and then we see:
 ```c
-    pppuVar16 = &local_128;
+  pppuVar16 = &local_128;
   pppuVar18 = &local_128;
   FUN_0011f000((undefined4 *)&local_a8);
   uStack_110 = uStack_90;
@@ -43,7 +43,7 @@ SOLUTION:
             FUN_00134220((long)plVar4,0x29,8,0x29,&PTR_s_src/main.rs_00348260);
           }
 ```
-- `0x7b4654436f636970` translates to picoCTF{, this part of teh code probably does an initial check
+- `0x7b4654436f636970` translates to picoCTF{, this part of the code probably does an initial check
 - Since picoctf{} is 9 chars the actual stuff we want to find is 32 characters
 - Lets analyze further:
   ```c
@@ -106,10 +106,31 @@ SOLUTION:
                         uVar17 = 1;
                         puVar19 = &DAT_00139d95
   ```
-  - The function `FUN_001054e0` is called 4 times and then a bunch of characters gets checked
-  - This probably means that the input is getting encrypted by this function and the ncompared to some predetermined values.
+  - The function `FUN_001054e0` is called 4 times and then a bunch of characters get checked
+  - This probably means that the input is getting encrypted by this function and then compared to some predetermined values.
   - Lets inspect `FUN_001054e0` to be sure:
 ```c
+  lVar2 = param_3 * 0x100;
+  local_20[0] = (&DAT_00139560)[(ulong)*param_2 + lVar2];
+  local_20[1] = (&DAT_00139560)[(ulong)param_2[1] + lVar2];
+  local_20[2] = (&DAT_00139560)[(ulong)param_2[2] + lVar2];
+  local_20[3] = (&DAT_00139560)[(ulong)param_2[3] + lVar2];
+  local_1c = (&DAT_00139560)[(ulong)param_2[4] + lVar2];
+  local_1b = (&DAT_00139560)[(ulong)param_2[5] + lVar2];
+  local_1a = (&DAT_00139560)[(ulong)param_2[6] + lVar2];
+  local_19 = (&DAT_00139560)[(ulong)param_2[7] + lVar2];
+  local_18 = (&DAT_00139560)[(ulong)param_2[8] + lVar2];
+  local_17 = (&DAT_00139560)[(ulong)param_2[9] + lVar2];
+  local_16 = (&DAT_00139560)[(ulong)param_2[10] + lVar2];
+  local_15 = (&DAT_00139560)[(ulong)param_2[0xb] + lVar2];
+  local_14 = (&DAT_00139560)[(ulong)param_2[0xc] + lVar2];
+  local_13 = (&DAT_00139560)[(ulong)param_2[0xd] + lVar2];
+  local_12 = (&DAT_00139560)[(ulong)param_2[0xe] + lVar2];
+  local_11 = (&DAT_00139560)[(ulong)param_2[0xf] + lVar2];
+  local_10 = (&DAT_00139560)[(ulong)param_2[0x10] + lVar2];
+  local_f = (&DAT_00139560)[(ulong)param_2[0x11] + lVar2];
+  local_e = (&DAT_00139560)[(ulong)param_2[0x12] + lVar2];
+  local_d = (&DAT_00139560)[(ulong)param_2[0x13] + lVar2];
   local_c = (&DAT_00139560)[(ulong)param_2[0x14] + lVar2];
   local_b = (&DAT_00139560)[(ulong)param_2[0x15] + lVar2];
   local_a = (&DAT_00139560)[(ulong)param_2[0x16] + lVar2];
@@ -136,10 +157,16 @@ SOLUTION:
         uVar1 = *(ulong *)(&DAT_00139a50 + lVar2);
         if (uVar1 < 0x20) {
           param_1[1][0xc] = local_20[uVar1];
-          uVar1 = *(ulong *)(&DAT_001399f8 + lVar2);
-          if (uVar1 < 0x20) {
-            param_1[1][1] = local_20[uVar1];
-            uVar1 = *(ulong *)(&DAT_001399e0 + lVar2);
 ```
-- Looks like encryption to me
+- Looks like encryption to me, I'm not 100 % sure how it works but it just about does this:
+  1) Create a new "word" based on `DAT_00139560`, where the character is chosen from `DAT_00139560` based on `(ulong)param_2[0x1f] + lVar2`.
+     We can assume either param_2 or lVar2 depent on our input since there wouldnt be encryption otherwise.
+     Local20 will thus store our encrypted input.
+  2) Save our encrypted input in a new array `param_1` at a random index ([8], [1][9]...)
+  3) Assign the index of the next character from out encrypted input by means of `uVar1 = *(ulong *)(&DAT_00139a38 + lVar2)`
+- If that didnt make sense to you, good. I dont know wtf is going on either tbh.
+- In conclusion: input get encrypted character by character, encrypted input get stored away randomly (I think lol, idk).
+  
+3) Lets look at this stuff in gdb, perhaps this will create a better picture
+   
   
