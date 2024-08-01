@@ -168,5 +168,55 @@ SOLUTION:
 - In conclusion: input get encrypted character by character, encrypted input get stored away randomly (I think lol, idk).
   
 3) Lets look at this stuff in gdb, perhaps this will create a better picture
-   
+   - First lets just set up gdb, we know the password must start with "picoCTF{", end with "}" and must contain 41 char -> picoCTF{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}
+     1) gdb checkpass
+     2) (gdb) start -> (gdb) piebase to see offset -> (gdb) run picoCTF{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa} -> "invalid password": Everything looks good.
+   - Lets set a breakpoint where our encrypted input gets compared to the predetermined variables (the first comparison):
+     
+     ``` if (local_c7 == -0x1a) ``` or in the assembly:  ``` 00105d12 3a 1c 2f        CMP        BL,byte ptr [RDI + RBP*0x1]=>DAT_00139dae        = E6h ```
+   - (gdb) breakrva 0x5d12: this calcultas the offset for us.
+   - Lets examine the predetermined registers first:
+     1) byte ptr [RDI + RBP*0x1] -> this means 1 byte is accesed at adress RDI + RBP*0x1.
+     2) RDi is 0x19 = 25 but lets just examine everything from rbp
+     3) (gdb) x/64xb $rbp
+     4) We can indeed see that the 25th byte is 0xe6 (-0x1a = 0xe6 for some reason, dont ask why)
+        
+      ![regrbp](https://github.com/user-attachments/assets/4403f455-fda4-464b-a8cf-100c2df148c8)
+
+   - Now for our encrypted input register (more difficult):
+     1) in ghidra we see that ```local_c7``` is stored at 
+        ![c7](https://github.com/user-attachments/assets/06373f66-29f5-4b83-8d10-539c06f0188f)
+     2) Normally  this mean sthat its just stored 0xc7 places above $rbp ($rbp - 0xc7) in the stack, however rbp has been assigned a new value and doesnt point to the stack anymore:
+        ![rbp-wrong](https://github.com/user-attachments/assets/cd600da0-5f5f-4cb3-90b6-4f26f879223c).
+
+     3) Lets find this adress based of $rsp then, when the stack is getting created we see: ```0010596a   SUB   RSP,0xf8``` (0xf8 = 248)
+     4) Since local_c7 is stored 0xc7 (=199) places above $rbp, it will be placed 248-199 under $rsp (providing $rsp didnt change).
+        
+     5) This means that our variables our getting stored close to $rsp so lets just examine a big part of it:
+      ![rspbiga](https://github.com/user-attachments/assets/ff40761e-8b12-4019-99a5-1a5c57849a0c)
+
+     6) What is our input now exactly? Lets run teh programm again but now with picoCTF{baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}, to see if anything changes (it should)
+         ![change](https://github.com/user-attachments/assets/e85b5ab7-77a9-4aaa-bbe6-fba90d0f579a)
+
+     7) We see 1 byte changed (at a random location)! This is thus for sure our input and were also sure that changing 1 char affects only 1 byte.
+        
+   4) Actually solving the challenge:
+      - I will be using a tool called valgrind to solve this challenge
+      - Shout out to https://www.youtube.com/watch?v=HPmAzLMkENk for being my guidline here.
+      - Since we know changing one character will change one byte in a random location that gets checked, we can brute force this challenge.
+      - The first if statement will be fullfilled if one of our chars is correct. We can bruteforce all chars on every location and the first if-statement will have to be true for one of these combinations (40 chars for 32 pos -> 1280 combinations).
+      - KEEP IN MIND: WE ARE NOTE BRUTEFORCING THE PASSWORD, JUST EACH CHARACTER INDIVIDUALLY
+      - We can use valgrid to check if this if-statement has been fulfilled based on the amount of instructions it counts. When a right character at the right place gets added the machine will have to do extra instructions to get to the second if-statement.
+      - I changed the python script from his video to something the I can understand better, but I made it very inefficient lol.
+      - runtime: 2,5 hrs
+      - Explanation of script is added to the script itself
+      - If I am bothered enough I will upload a better one.
+
+
+
+
   
+
+
+
+
