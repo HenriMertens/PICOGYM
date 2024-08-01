@@ -169,16 +169,16 @@ SOLUTION:
   
 3) Lets look at this stuff in gdb, perhaps this will create a better picture
    - First lets just set up gdb, we know the password must start with "picoCTF{", end with "}" and must contain 41 char -> picoCTF{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}
-     1) gdb checkpass
-     2) (gdb) start -> (gdb) piebase to see offset -> (gdb) run picoCTF{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa} -> "invalid password": Everything looks good.
+     1) ```(gdb) checkpass```
+     2) ```(gdb) start``` -> ```(gdb) piebase``` to see offset -> ```(gdb) run picoCTF{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}``` -> "invalid password": Everything looks good.
    - Lets set a breakpoint where our encrypted input gets compared to the predetermined variables (the first comparison):
      
      ``` if (local_c7 == -0x1a) ``` or in the assembly:  ``` 00105d12 3a 1c 2f        CMP        BL,byte ptr [RDI + RBP*0x1]=>DAT_00139dae        = E6h ```
-   - (gdb) breakrva 0x5d12: this calcultas the offset for us.
+   - ```(gdb) breakrva 0x5d12```: this calcultas the offset for us.
    - Lets examine the predetermined registers first:
-     1) byte ptr [RDI + RBP*0x1] -> this means 1 byte is accesed at adress RDI + RBP*0x1.
+     1) ```byte ptr [RDI + RBP*0x1]``` -> this means 1 byte is accesed at adress RDI + RBP*0x1.
      2) RDi is 0x19 = 25 but lets just examine everything from rbp
-     3) (gdb) x/64xb $rbp
+     3) ```(gdb) x/64xb $rbp```
      4) We can indeed see that the 25th byte is 0xe6 (-0x1a = 0xe6 for some reason, dont ask why)
         
       ![regrbp](https://github.com/user-attachments/assets/4403f455-fda4-464b-a8cf-100c2df148c8)
