@@ -208,9 +208,11 @@ SOLUTION:
       - KEEP IN MIND: WE ARE NOTE BRUTEFORCING THE PASSWORD, JUST EACH CHARACTER INDIVIDUALLY
       - We can use valgrid to check if this if-statement has been fulfilled based on the amount of instructions it counts. When a right character at the right place gets added the machine will have to do extra instructions to get to the second if-statement.
       - I changed the python script from his video to something the I can understand better, but I made it very inefficient lol.
-      - runtime: 2,5 hrs
+      - runtime: 3 hrs
       - Explanation of script is added to the script itself
       - If I am bothered enough I will upload a better one.
+      - Edit: I did upload a better one, same explanation as the first one but this one doesnt check already guessed characters anymore
+      - Time saved: +-1,5 hrs
 
 
 
