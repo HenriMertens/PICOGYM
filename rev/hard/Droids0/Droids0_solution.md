@@ -73,7 +73,7 @@ A native function in java basically means that the function is actually written 
   5) Next I wanted to find this library, I just went to the zero folder and did `grep -r paprika`. This gave the following:
 ![image](https://github.com/user-attachments/assets/bafa9c44-4c99-4ff1-b8b4-5dc6e4d381bd)
 
-  6) After this I navigated to one of the so files (doesnt really matter which one I chose x86), and opend it in ghidra. After ghidra's is done analysing we can see our paprika function:
+  6) After this I navigated to one of the so files (doesnt really matter which one, I chose x86), and opened it in ghidra. After ghidra's is done analysing, we can see our paprika function:
 ```c
 undefined4
 Java_com_hellocmu_picoctf_FlagstaffHill_paprika(int *param_1,undefined4 param_2,undefined4 param_3)
@@ -97,7 +97,7 @@ Java_com_hellocmu_picoctf_FlagstaffHill_paprika(int *param_1,undefined4 param_2,
   return uVar2;
 }
 ```
-  7) I honsetly cant explain some of the stuff thats happening, but the most important thing will be the if block. Ghidra also has some trouble since it tells me that `dill(uVar2)` will just always return 1, while the assembly looks very very weird:
+  7) I honestly cant explain some of the stuff thats happening, but the most important thing will be the if block. Ghidra also has some trouble since it tells me that `dill(uVar2)` will just always return 1, while the assembly looks very very weird:
 ```c
 undefined4 dill(void)
 
@@ -106,7 +106,7 @@ undefined4 dill(void)
 }
 
 ```
-  This would mean that the marjoram function is always called so there would be no need for an if block. Also the paprika function has 4 parameters while we only provide one in the java function.
+  This would mean that the marjoram function is always called, so there would be no need for an if block. Also, the paprika function has 4 parameters while we only provide one in the java function.
   8) Anyway, the next logical step is to look at this marjoram function (I already renamed some stuff):
 ```c
 void marjoram(void)
@@ -125,7 +125,7 @@ void marjoram(void)
   return;
 }
 ```
-  This already looks way clearer, some stuff is intialised and then called by "unscramble". This is very exciting since "unscramble usually means unscrambling the flag in ctf challenges".
+  This already looks way clearer, some stuff is intialised and then called by "unscramble". This is very exciting since "unscramble" usually means unscrambling the flag in ctf challenges.
   Note: data_segment is just 36 random hex chars.
 
   9) Opening the unscramble function we can see:
@@ -156,5 +156,8 @@ void * unscramble(int data_segment,size_t 35,int notexist,int 8)
       - `*(byte *)(data_segment + i)` -> take byte (hex value) of data_segment at position local20
       - `^ *(byte *)(notexist + local_20 % 8)` -> xor it with the character of "notexist" at index local_20%8 (bascically just go through all characters of "notexist" over and over again)
   - `local_20 = local_20 + 1` -> just add one to local_20, since local_20 was initialised to be 0 this is the same thing as it being i.
-
+    
+10) Since this function unscrambles the flag, we do not need to reverse it, rather just implement it. I just copied the data_segment in python (very easy to do in ghidra) and did just these exact steps I described. 
+    After running the script we get our flag:
+    `picoCTF{a.moose.once.bit.my.sister}`
 
