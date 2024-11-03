@@ -30,8 +30,10 @@ This challenge is very similar two droids0, we get an apk file and are asked to 
 }
 ```
 -> dismass.ogg.weatherwax.aching.nitt.garlick
+
 5) I ran the apk via an online emulator https://appetize.io and entered in the password.
    As expected it returned the flag: `picoCTF{what.is.your.favourite.colour}`
+   
    This challenge was so easy I think I might have done something wrong in the previous one lol
 
    
