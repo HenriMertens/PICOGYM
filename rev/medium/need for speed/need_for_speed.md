@@ -82,9 +82,10 @@ void print_flag(void)
 }
 
  ```
-At the moment we also do not care how this is decrypted
+At the moment we also do not care how this is decrypted.
+
 SOLUTION:
-- If we can avoid the timer we can just print teh flag withouth it vlosing the programm.
+- If we can avoid the timer we can just print the flag withouth it closing the program.
 - There are numerous ways to do this:
   1) Change set_timer to NOP instructions in ghidra
      
