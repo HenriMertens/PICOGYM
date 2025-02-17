@@ -19,16 +19,16 @@ In this challenge we get an exe file and are tasked with debugging it. I have no
   6) Now we want to set a breakpoint in windgb at offset 0x15fc (ghidra used base adress 0x40000), however windbg expects an absolute adress so wen need to find this.
      - using `lm` (list modules) we see:
        ![image](https://github.com/user-attachments/assets/8f58062d-f89c-4645-8bde-b047db0a50eb)
-     - more sopecifically: `00920000 00928000   WinAntiDbg0x100 C (no symbols)`
+     - more specifically: `00920000 00928000   WinAntiDbg0x100 C (no symbols)`
      This tells use the exe starts at offset 0x920000, so our absolute adress is `0x920000 + 0x15fc = 0x9215fc`
-  7) Now we first restart the programm using `.restart` and then set the breakpoint using `bp 0x9215fc`, after this we can continue the programm with `g`:
+  7) Now we first restart the program using `.restart` and then set the breakpoint using `bp 0x9215fc`, after this we can continue the programm with `g`:
      I also went to view>disassembly to get a nice list of all the next instrutions.
      ![image](https://github.com/user-attachments/assets/c798407f-cae8-4bd3-91c3-7bc3a1867617)
   8) In the disassembly view we can see `test eax eax`, this just checks if eax is zero, since we want to change the outcome we need to change what eax is.
      - First call the current instruction, since this is `IsDebuggerPresent()`: `p` (proceed)
      - Finding the value of eax: `r` (registers) -> `eax=00000001`
      - Setting eax to 0: `r eax=0`
-     - Continuing the programm: `g`
+     - Continuing the program: `g`
   9) This gives us:
       ![image](https://github.com/user-attachments/assets/98b8917e-9e6c-4311-a170-f51b4bb7006b)
      picoCTF{d3bug_f0r_th3_Win_0x100_cc0ff664}
