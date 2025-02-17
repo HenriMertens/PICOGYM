@@ -29,7 +29,7 @@ In this challenge we need to find out what the last integer was, that was passed
   
   ![error](https://github.com/user-attachments/assets/854b4873-10f6-463a-8cc8-36c92a12beb3)
 
-- Hmmm, I know my fork() logic is correct, so lets examine the other weird lien of code `piVar1 = (int *)mmap((void *)0x0,4,3,0x21,-1,0);`
+- Hmmm, I know my fork() logic is correct, so lets examine the other weird line of code `piVar1 = (int *)mmap((void *)0x0,4,3,0x21,-1,0);`
 - Manual : `void *mmap(void addr[.length], size_t length, int prot, int flags,
                   int fd, off_t offset);` and `mmap()  creates  a  new mapping in the virtual address space of the calling process.  The starting address
        for the new mapping is specified in addr.  The length argument specifies the length of the mapping  (which
