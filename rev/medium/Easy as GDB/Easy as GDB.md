@@ -1,5 +1,5 @@
 1) Run file normally
-  - It asks us for a flag, when a wrong input is given the programm closes.
+  - It asks us for a flag, when a wrong input is given the program closes.
     
   ![brutestart](https://github.com/HenriMertens/PICOGYM/assets/149707229/1d9948ed-d73e-4a9a-8b2d-f7d31305297a)
 
@@ -34,7 +34,7 @@
   return 0;
 }
 ```
-  - We see our input get saved via the fgets function
+  - We see our input gets saved via the `fgets` function
     ```c
     fgets(__s, 0x200, _stdin);
     ```
