@@ -130,7 +130,7 @@ This challenge is a little different from before, we get an executable with some
          ```
       This also doesnt seems to important since it just opens a window or something, I named it accordingly.
 
-    - After this no function are able to be decompiled, so were stuck lol. WHere is the flag?
+    - After this no function are able to be decompiled, so were stuck lol. Where is the flag?
       When searching for strings we also saw a flag string in the program, navigating to the function that calls it is gives: `FUN_00403740`
          ```c
                   /* WARNING: Removing unreachable block (ram,0x004038e0) */
