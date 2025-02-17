@@ -60,7 +60,7 @@
 - We can solve this error by just creating a flag.txt ourselves.
 - Its improtant to note that ```c sVar1 = fread(local_58,0x18,1,local_20 ``` reads the contents of the flag.txt file and puts it in the local_58 variable. sVar1 is assigned a value based on if the file was read succesfully.
 - The errors also tell us some important information:
-  The flag.txt was on the server and contained the actual flag, when the programm was run on the server it opened the flag.txt, encrypted it contents and put the encrypted flag in rev_this.
+  The flag.txt was on the server and contained the actual flag, when the program was run on the server it opened the flag.txt, encrypted it contents and put the encrypted flag in rev_this.
   Knowing this I changed some of the variable names to make it easier to understand:
 
  ```c
